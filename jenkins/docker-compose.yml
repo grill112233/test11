@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    working_dir: /var/jenkins_home/workspace/node_react/src
+    networks:
+      - app-network
+    links:
+      - mongodb
+
+  mongodb:
+    image: mongo
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
