@@ -1,20 +1,12 @@
 pipeline {
-    agent {
-        docker {
-            image 'mongo'
-            args '--network netnode'
-        }
-        docker {
-            image 'node:8.11.1-alpine'
-            args '--network netnode -p 3000:3000 --link mongo'
-        }
-    }
+    agent any
     environment {
         CI = 'true'
     }
     stages {
         stage('Build') {
             steps {
+		sh 'docker-compose up'
                 sh 'npm install'
             }
         }
